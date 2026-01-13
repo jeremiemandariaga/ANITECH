@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANITECH – Agricultural Prediction</title>
+
+<style>
+:root {
+  --green-main: #355c34;
+  --green-dark: #2f6b3a;
+  --green-light: #eaf7e8;
+  --green-card: #cfeccc;
+  --text-dark: #1a2715;
+  --bg: #d7e7d3;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: #203421; 
+  position: relative;
+  min-height: 100vh;
+  background-image: url('farm-bg.png'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(180, 180, 180, 0.4); 
+  z-index: -1; 
+}
+
+/* ================= HEADER ================= */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 70px;
+}
+
+header .logo h2 {
+  color: var(--green-dark);
+  margin-top: 8px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.logo img,
+#loginModal .modal-box img,
+#signupModal .modal-box img {
+  width: auto;
+  height: 60px; /* Adjust this value as needed */
+  object-fit: contain;
+  display: flex;
+  align-items: center;
+}
+
+nav button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--green-main);
+  background: transparent;
+  color: var(--green-main);
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+nav .primary {
+  background: var(--green-main);
+  color: #fff;
+}
+
+/* ================= HERO ================= */
+.hero {
+  text-align: center;
+  padding: 90px 20px 120px;
+  min-height: 100vh;
+  z-index: 2;
+}
+
+.hero h1 {
+  font-size: 64px;
+  font-weight: 800;
+  color: var(--green-main);
+  margin-bottom: 25px;
+}
+
+.hero p {
+  max-width: 750px;
+  margin: auto;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #182e0b;
+}
+
+.hero button {
+  margin-top: 35px;
+  padding: 14px 40px;
+  border-radius: 10px;
+  border: none;
+  background: var(--green-main);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* ================= SECTIONS ================= */
+section {
+  padding: 80px 90px;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 55px;
+}
+
+.section-title h2 {
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.section-title p {
+  font-size: 16px;
+  color: #01190b;
+}
+
+/* ================= FEATURES ================= */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+  padding: 20px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 30px 20px; /* Reduced padding for compact look */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); /* Softer shadow */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px; /* Ensures uniform height */
+  transition: transform 0.2s ease;
+  border: 1px solid rgba(60, 124, 59, 0.2);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  font-weight: 600;
+
+}
+
+.card p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #444;
+  max-width: 220px;
+  text-align: center;
+}
+
+/* ================= HOW IT WORKS ================= */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+}
+
+.step {
+  background:rgba(255, 255, 255, 0.7);
+  padding: 40px;
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  border: 1px solid rgba(60, 124, 59, 0.2);
+}
+
+.step-number {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #6aa16a;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 18px;
+}
+
+.step h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.step p {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ================= FOOTER ================= */
+footer {
+  text-align: center;
+  padding: 25px;
+  background: #6b736b;
+  color: #fff;
+  font-size: 14px;
+}
+
+/*========== MODAL =============*/
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-box {
+  background:rgba(255, 255, 255, 0.7);
+  padding: 30px;
+  width: 320px;
+  border-radius: 14px;
+}
+
+.modal-box h2 {
+  margin-bottom: 15px;
+}
+
+.modal-box input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+}
+
+.modal-box button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  background: var(--green-main);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.close {
+  text-align: right;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/*=============== LOGIN/SIGNUP MODAL STYLE  =============*/
+#signupModal .modal-box,
+#loginModal .modal-box {
+  background: rgba(247, 255, 246, 0.9);
+  padding: 50px 35px 35px; 
+  width: 420px; 
+  max-width: 95vw;
+  border-radius: 20px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+  margin: 70px auto; 
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  position: relative;
+  font-size: 14px;
+  scrollbar-width: none;
+}
+
+#signupModal .modal-box .close,
+#loginModal .modal-box .close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #777;
+  cursor: pointer;
+  z-index: 10;
+  line-height: 1;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+#signupModal .modal-box img,
+#loginModal .modal-box img {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  display: block;
+}
+
+#signupModal .modal-box h2,
+#loginModal .modal-box h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--green-dark);
+  text-align: center;
+  margin: 0 0 25px;
+}
+
+#signupModal .modal-box p,
+#loginModal .modal-box p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#signupModal .modal-box label,
+#loginModal .modal-box label {
+  display: block;
+  margin: 15px 0 5px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+#signupModal .modal-box input[type="text"],
+#signupModal .modal-box input[type="email"],
+#signupModal .modal-box input[type="password"],
+#loginModal .modal-box input[type="email"],
+#loginModal .modal-box input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f8f8f8;
+  font-size: 14px;
+  margin: 0;
+}
+
+#signupModal .modal-box .account-type,
+#loginModal .modal-box .account-type {
+  margin: 20px 0;
+}
+
+#signupModal .modal-box .account-type label,
+#loginModal .modal-box .account-type label {
+  display: grid;
+  margin: 10px 0 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+#signupModal .modal-box .radio-group,
+#loginModal .modal-box .radio-group {
+  margin-top: 10px;
+}
+
+#signupModal .modal-box .radio-option,
+#loginModal .modal-box .radio-option {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+}
+
+#signupModal .modal-box .radio-option input,
+#loginModal .modal-box .radio-option input {
+  width: auto;
+  margin: 0 8px 0 0;
+  accent-color: var(--green-main);
+}
+
+#signupModal .modal-box .radio-option label,
+#loginModal .modal-box .radio-option label {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+#loginModal .modal-box .links {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0 20px;
+  font-size: 13px;
+}
+
+#signupModal .modal-box button {
+  width: 100%;
+  margin-top: 25px;
+  padding: 12px;
+  background: var(--green-main);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#loginModal .modal-box .links a {
+  color: var(--green-main);
+  text-decoration: none;
+}
+
+#loginModal .modal-box .links a:hover {
+  text-decoration: underline;
+}
+
+#signupModal .modal-box button,
+#loginModal .modal-box button {
+  width: 100%;
+  margin-top: 25px;
+  padding: 12px;
+  background: var(--green-main);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#signupModal .modal-box button:hover,
+#loginModal .modal-box button:hover {
+  background: var(--green-dark);
+}
+
+#signupModal .modal-box .terms,
+#loginModal .modal-box .terms {
+  font-size: 12px;
+  color: #777;
+  text-align: center;
+  margin-top: 20px;
+  line-height: 1.4;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  header { padding: 20px 30px; }
+  section { padding: 60px 30px; }
+  .hero h1 { font-size: 46px; }
+  
+  #loginModal .modal-box {
+    width: 90%;
+    padding: 30px 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <img src="logo.png" alt="ANITECH Logo">
+    <h3>ANITECH</h3>
+  </div>
+  <nav>
+    <button onclick="openLogin()">Log In</button>
+    <button class="primary" onclick="openSignup()">Sign Up</button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Agricultural Prediction</h1>
+  <p>
+    Optimize your farming decisions with machine learning predictions for crops,
+    weather forecasts, and real-time market prices.
+  </p>
+   <button onclick="getStarted()">Get Started</button>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-title">
+    <h2>Features</h2>
+    <p>Our ML-based provides comprehensive agricultural analytics to help you make data-driven decisions.</p>
+  </div>
+
+  <div class="features">
+    <div class="card">
+      <h3>Weather Forecasts</h3>
+      <p>Precise weather predictions to plan your farming activities with confidence.</p>
+    </div>
+
+    <div class="card">
+      <h3>Crop Predictions</h3>
+      <p>AI-driven recommendations for high-yield and seasonal crops.</p>
+    </div>
+
+    <div class="card">
+      <h3>Market Prices</h3>
+      <p>Real-time agricultural commodity prices to maximize your profits.</p>
+    </div>
+
+    <div class="card">
+      <h3>Buyer Offers</h3>
+      <p>Connect with buyers offering the best prices for your products.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="section-title">
+    <h2>How It Works</h2>
+    <p>Our platform leverages advanced machine learning algorithms.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-number">1</div>
+      <h3>Data Collection</h3>
+      <p>
+        We gather data from weather stations, satellite imagery,
+        market sources, and your farm inputs.
+      </p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">2</div>
+      <h3>AI Analysis</h3>
+      <p>
+        ML algorithms analyze patterns, predict outcomes,
+        and generate personalized recommendations.
+      </p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">3</div>
+      <h3>Actionable Insights</h3>
+      <p>
+        Access a personalized dashboard with clear insights
+        for optimal decision-making.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- LOGIN MODAL  -->
+<div class="modal" id="loginModal">
+  <div class="modal-box">
+    <div class="close" onclick="closeModals()">✖</div>
+    <img src="logo.png" alt="ANITECH Logo">
+    <h2>ANITECH</h2>
+    <p>Login or create an account to access your dashboard</p>
+    
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="Email Address">
+    
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Password">
+    
+    <div class="links">
+      <span>Don't have an account? <a href="#" onclick="openSignup(); return false;">Register</a></span>
+      <a href="#" onclick="alert('Forgot password feature would be implemented here.'); return false;">Forgot Password?</a>
+    </div>
+    
+    <div class="account-type">
+      <label>Account Type</label>
+      <div class="radio-group">
+        <div class="radio-option">
+          <input type="radio" id="admin" name="accountType" value="admin">
+          <label for="admin">Admin</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="secretary" name="accountType" value="secretary">
+          <label for="secretary">Secretary</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="farmer" name="accountType" value="farmer" checked>
+          <label for="farmer">Farmer</label>
+        </div>
+      </div>
+    </div>
+    
+    <button onclick="login()">Login</button>
+    
+    <div class="terms">
+      By continuing, you agree to our <a href="#" style="color: var(--green-main); text-decoration: underline;">Terms of Service</a> and <a href="#" style="color: var(--green-main); text-decoration: underline;">Privacy Policy</a>.
+    </div>
+  </div>
+</div>
+
+<!-- SIGNUP MODAL  -->
+<div class="modal" id="signupModal">
+  <div class="modal-box">
+    <div class="close" onclick="closeModals()">✖</div>
+    <img src="logo.png" alt="ANITECH Logo">
+    <h2>ANITECH</h2>
+    <p>Login or create an account to access your dashboard</p>
+    
+    <label for="name">Name</label>
+    <input type="text" id="name" placeholder="Full Name">
+    
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="Email Address">
+    
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Password">
+
+    <div class="account-type">
+      <label>Account Type</label>
+      <div class="radio-group">
+        <div class="radio-option">
+          <input type="radio" id="admin" name="accountType" value="admin">
+          <label for="admin">Admin</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="secretary" name="accountType" value="secretary">
+          <label for="secretary">Secretary</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="farmer" name="accountType" value="farmer" checked>
+          <label for="farmer">Farmer</label>
+        </div>
+      </div>
+    </div>
+     <button onclick="signup()">Create account</button>
+    
+    <div class="terms">
+      By continuing, you agree to our <a href="#" style="color: var(--green-main); text-decoration: underline;">Terms of Service</a> and <a href="#" style="color: var(--green-main); text-decoration: underline;">Privacy Policy</a>.
+    </div>
+  </div>
+</div>
+
+<script>
+let loggedIn = false;
+
+function openLogin() {
+  document.getElementById("loginModal").style.display = "flex";
+}
+
+function openSignup() {
+  document.getElementById("loginModal").style.display = "none";
+  document.getElementById("signupModal").style.display = "flex";
+}
+
+function closeModals() {
+  document.getElementById("loginModal").style.display = "none";
+  document.getElementById("signupModal").style.display = "none";
+}
+
+function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const accountType = document.querySelector('input[name="accountType"]:checked').value;
+  
+  if (email && password) {
+    loggedIn = true;
+    closeModals();
+    showDashboard();
+  } else {
+    alert("Please fill in all required fields.");
+  }
+}
+
+function signup() {
+  const name = document.getElementById("signupModal").querySelector('input[type="text"]').value;
+  const email = document.getElementById("signupModal").querySelector('input[type="email"]').value;
+  const password = document.getElementById("signupModal").querySelector('input[type="password"]').value;
+  
+  if (name && email && password) {
+    loggedIn = true;
+    closeModals();
+    showDashboard();
+  } else {
+    alert("Please fill in all required fields.");
+  }
+}
+
+function getStarted() {
+  document.getElementById("features").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+</script>
+
+<footer>
+  © 2025 ANITECH. All rights reserved.
+</footer>
+
+</body>
+</html>
