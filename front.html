@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,8 +54,8 @@ header {
   padding: 25px 70px;
 }
 
-header .logo h2 {
-  color: var(--green-dark);
+header .logo h3 {
+  color: #355c34;
   margin-top: 8px;
   font-size: 18px;
   font-weight: 700;
@@ -133,11 +134,12 @@ section {
 .section-title h2 {
   font-size: 42px;
   margin-bottom: 12px;
+  color: #ffffff;
 }
 
 .section-title p {
-  font-size: 16px;
-  color: #01190b;
+  font-size: 20px;
+  color: #ffffff;
 }
 
 /* ================= FEATURES ================= */
@@ -488,7 +490,7 @@ footer {
 
 <!-- HERO -->
 <div class="hero">
-  <h1>Agricultural Prediction</h1>
+  <h1>AGRICULTURAL PREDICTIONS FOR ENHANCED PRODUCTIVITY</h1>
   <p>
     Optimize your farming decisions with machine learning predictions for crops,
     weather forecasts, and real-time market prices.
@@ -505,21 +507,25 @@ footer {
 
   <div class="features">
     <div class="card">
+      <img src="weather-icon.png" alt="Weather Icon" style="width: 50px; height: 50px; margin-bottom: 12px;">
       <h3>Weather Forecasts</h3>
       <p>Precise weather predictions to plan your farming activities with confidence.</p>
     </div>
 
     <div class="card">
+      <img src="crop-icon.png" alt="Crop Icon" style="width: 50px; height: 50px; margin-bottom: 12px;">
       <h3>Crop Predictions</h3>
       <p>AI-driven recommendations for high-yield and seasonal crops.</p>
     </div>
 
     <div class="card">
+      <img src="market-icon.png" alt="Market Icon" style="width: 50px; height: 50px; margin-bottom: 12px;">
       <h3>Market Prices</h3>
       <p>Real-time agricultural commodity prices to maximize your profits.</p>
     </div>
 
     <div class="card">
+      <img src="buyer-icon.png" alt="Buyer Icon" style="width: 50px; height: 50px; margin-bottom: 12px;">
       <h3>Buyer Offers</h3>
       <p>Connect with buyers offering the best prices for your products.</p>
     </div>
@@ -608,51 +614,50 @@ footer {
   </div>
 </div>
 
-<!-- SIGNUP MODAL  -->
+<!-- SIGNUP MODAL -->
 <div class="modal" id="signupModal">
   <div class="modal-box">
     <div class="close" onclick="closeModals()">✖</div>
     <img src="logo.png" alt="ANITECH Logo">
     <h2>ANITECH</h2>
-    <p>Login or create an account to access your dashboard</p>
+    <p>Create an account to access your dashboard</p>
     
-    <label for="name">Name</label>
-    <input type="text" id="name" placeholder="Full Name">
+    <label for="signup-name">Name</label>
+    <input type="text" id="signup-name" placeholder="Full Name">
     
-    <label for="email">Email</label>
-    <input type="email" id="email" placeholder="Email Address">
+    <label for="signup-email">Email</label>
+    <input type="email" id="signup-email" placeholder="Email Address">
     
-    <label for="password">Password</label>
-    <input type="password" id="password" placeholder="Password">
+    <label for="signup-password">Password</label>
+    <input type="password" id="signup-password" placeholder="Password">
 
     <div class="account-type">
       <label>Account Type</label>
       <div class="radio-group">
         <div class="radio-option">
-          <input type="radio" id="admin" name="accountType" value="admin">
-          <label for="admin">Admin</label>
+          <input type="radio" id="s-admin" name="accountType" value="admin">
+          <label for="s-admin">Admin</label>
         </div>
         <div class="radio-option">
-          <input type="radio" id="secretary" name="accountType" value="secretary">
-          <label for="secretary">Secretary</label>
+          <input type="radio" id="s-secretary" name="accountType" value="secretary">
+          <label for="s-secretary">Secretary</label>
         </div>
         <div class="radio-option">
-          <input type="radio" id="farmer" name="accountType" value="farmer" checked>
-          <label for="farmer">Farmer</label>
+          <input type="radio" id="s-farmer" name="accountType" value="farmer" checked>
+          <label for="s-farmer">Farmer</label>
         </div>
       </div>
     </div>
-     <button onclick="signup()">Create account</button>
+    
+    <button onclick="signup()">Create account</button>
     
     <div class="terms">
-      By continuing, you agree to our <a href="#" style="color: var(--green-main); text-decoration: underline;">Terms of Service</a> and <a href="#" style="color: var(--green-main); text-decoration: underline;">Privacy Policy</a>.
+      By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
     </div>
   </div>
 </div>
 
 <script>
-let loggedIn = false;
-
 function openLogin() {
   document.getElementById("loginModal").style.display = "flex";
 }
@@ -667,31 +672,108 @@ function closeModals() {
   document.getElementById("signupModal").style.display = "none";
 }
 
-function login() {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const accountType = document.querySelector('input[name="accountType"]:checked').value;
-  
-  if (email && password) {
-    loggedIn = true;
-    closeModals();
-    showDashboard();
-  } else {
-    alert("Please fill in all required fields.");
+function showDashboard() {
+  alert("Redirecting to dashboard..."); // Replace with actual redirect later
+  // window.location.href = 'dashboard.php';
+}
+
+// Generic AJAX function
+async function sendAuthRequest(url, data) {
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    return await response.json();
+  } catch (error) {
+    return { success: false, message: 'Network error. Please try again.' };
   }
 }
 
-function signup() {
-  const name = document.getElementById("signupModal").querySelector('input[type="text"]').value;
-  const email = document.getElementById("signupModal").querySelector('input[type="email"]').value;
-  const password = document.getElementById("signupModal").querySelector('input[type="password"]').value;
-  
-  if (name && email && password) {
-    loggedIn = true;
-    closeModals();
-    showDashboard();
-  } else {
-    alert("Please fill in all required fields.");
+fetch('auth.php', {
+  method: 'POST',
+  headers: {'Content-Type': 'application/json'},
+  body: JSON.stringify({action: 'signup', name: 'Test', email: 'test@test.com', password: '123'})
+})
+.then(r => r.text())
+.then(console.log);
+
+async function login() {
+  const email = document.getElementById("email")?.value || '';
+  const password = document.getElementById("password")?.value || '';
+  const accountType = document.querySelector('#loginModal input[name="accountType"]:checked')?.value || 'farmer';
+
+  if (!email || !password) {
+    alert("Please fill in email and password.");
+    return;
+  }
+
+  try {
+    const response = await fetch('auth.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'login',
+        email,
+        password,
+        account_type: accountType
+      })
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      alert(result.message);
+      closeModals();
+      if (result.redirect) {
+        window.location.href = result.redirect;
+      }
+    } else {
+      alert(result.message);
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+    alert("Failed to connect to server.");
+  }
+}
+
+async function signup() {
+  const name = document.getElementById("signup-name")?.value || '';
+  const email = document.getElementById("signup-email")?.value || '';
+  const password = document.getElementById("signup-password")?.value || '';
+  const accountType = document.querySelector('#signupModal input[name="accountType"]:checked')?.value || 'farmer';
+
+  if (!name || !email || !password) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  try {
+    const response = await fetch('auth.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'signup',
+        name,
+        email,
+        password,
+        account_type: accountType
+      })
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      alert(result.message);
+      closeModals();
+      openLogin();
+    } else {
+      alert(result.message);
+    }
+  } catch (error) {
+    console.error("Signup error:", error);
+    alert("Failed to connect to server.");
   }
 }
 
